@@ -172,6 +172,8 @@
                                 <polyline points="13 14 11 18 14 18 12 22"></polyline>
                             </svg>
                         </td>
+                    {% else %}
+                        {{ current_weather.weather }}
                     {% endif %}
                     <td>{{ city_weather.tempmax }}</td>
                     <td>{{ city_weather.tempmin }}</td>

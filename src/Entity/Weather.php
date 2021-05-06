@@ -38,7 +38,6 @@ class Weather
     private $temp_feel;
 
 
-
     /**
      * @ORM\ManyToOne(targetEntity=Cities::class)
      * @ORM\JoinColumn(nullable=false)
