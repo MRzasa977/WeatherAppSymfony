@@ -1,0 +1,188 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="example-wrapper">
+        <table class="table table-striped">
+            <caption>Current weather</caption>
+            <thead>
+            <tr>
+                <td>City</td>
+                <td>Temperature</td>
+                <td>Weather</td>
+                <td>Max temperature</td>
+                <td>Min temperature</td>
+                <td>Date</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    {{ city.city }}
+                </td>
+                {% if current_weather.temp >10 and current_weather.temp < 20 %}
+                    <td style="background-color: yellowgreen">
+                        {{ current_weather.temp }}
+                    </td>
+                {% elseif current_weather.temp < 10 %}
+                    <td style="background-color: cadetblue">
+                        {{ current_weather.temp }}
+                    </td>
+                {% elseif current_weather.temp > 20 %}
+                    <td style="background-color: orange">
+                        {{ current_weather.temp }}
+                    </td>
+                {% endif %}
+                {% if current_weather.weather == 'Clear' %}
+                    <td>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun" width="24"
+                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path>
+                        </svg>
+                    </td>
+                {% elseif current_weather.weather == 'Clouds' %}
+                    <td>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud" width="24"
+                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-12"></path>
+                        </svg>
+                    </td>
+                {% elseif current_weather.weather == 'Rain' or current_weather.weather == 'Drizzle' %}
+                    <td>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud-rain"
+                             width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                             fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7"></path>
+                            <path d="M11 13v2m0 3v2m4 -5v2m0 3v2"></path>
+                        </svg>
+                    </td>
+                {% elseif current_weather.weather == 'Thunderstorm' %}
+                    <td>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud-storm"
+                             width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                             fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1"></path>
+                            <polyline points="13 14 11 18 14 18 12 22"></polyline>
+                        </svg>
+                    </td>
+                {% elseif current_weather.weather == 'Snow' %}
+                    <td>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud-snow"
+                             width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                             fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7"></path>
+                            <path d="M11 15v.01m0 3v.01m0 3v.01m4 -4v.01m0 3v.01"></path>
+                        </svg>
+                    </td>
+                {% elseif current_weather.weather == 'Mist' or current_weather.weather == 'Fog' %}
+                    <td>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mist" width="24"
+                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M5 5h3m4 0h9"></path>
+                            <path d="M3 10h11m4 0h1"></path>
+                            <path d="M5 15h5m4 0h7"></path>
+                            <path d="M3 20h9m4 0h3"></path>
+                        </svg>
+                    </td>
+                {% else %}
+                    {{ current_weather.weather }}
+                {% endif %}
+                <td>{{ current_weather.tempmax }}</td>
+                <td>{{ current_weather.tempmin }}</td>
+                <td>{{ current_weather.date.format('Y-m-d H:i:s') }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped">
+            <caption>Historic weather</caption>
+            <thead>
+            <tr>
+                <td>City</td>
+                <td>Temperature</td>
+                <td>Weather</td>
+                <td>Max temperature</td>
+                <td>Min temperature</td>
+                <td>Date</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for city_weather in weather %}
+                <tr>
+                    <td>
+                        {{ city.city }}
+                    </td>
+                    {% if city_weather.temp >10 and city_weather.temp < 20 %}
+                        <td style="background-color: yellowgreen">
+                            {{ city_weather.temp }}
+                        </td>
+                    {% elseif city_weather.temp < 10 %}
+                        <td style="background-color: cadetblue">
+                            {{ city_weather.temp }}
+                        </td>
+                    {% elseif city_weather.temp > 20 %}
+                        <td style="background-color: orange">
+                            {{ city_weather.temp }}
+                        </td>
+
+                    {% endif %}
+                    {% if city_weather.weather == 'Clear' %}
+                        <td>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun" width="24"
+                                 height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <circle cx="12" cy="12" r="4"></circle>
+                                <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path>
+                            </svg>
+                        </td>
+                    {% elseif city_weather.weather == 'Clouds' %}
+                        <td>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud"
+                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-12"></path>
+                            </svg>
+                        </td>
+                    {% elseif city_weather.weather == 'Rain' %}
+                        <td>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud-rain"
+                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7"></path>
+                                <path d="M11 13v2m0 3v2m4 -5v2m0 3v2"></path>
+                            </svg>
+                        </td>
+                    {% elseif city_weather.weather == 'Storm' %}
+                        <td>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-cloud-storm"
+                                 width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1"></path>
+                                <polyline points="13 14 11 18 14 18 12 22"></polyline>
+                            </svg>
+                        </td>
+                    {% endif %}
+                    <td>{{ city_weather.tempmax }}</td>
+                    <td>{{ city_weather.tempmin }}</td>
+                    <td>{{ city_weather.date.format('Y-m-d H:i:s') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('weather.create') }}">
+            search
+        </a>
+
+    </div>
+{% endblock %}

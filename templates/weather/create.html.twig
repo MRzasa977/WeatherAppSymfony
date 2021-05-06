@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% for message in app.flashes('error') %}
+        <h3>{{ message }}</h3>
+    {% endfor %}
+    {{ form_label(form, 'Type location here') }}
+    {{ form(form) }}
+{% endblock %}
