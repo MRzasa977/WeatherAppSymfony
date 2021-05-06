@@ -23,8 +23,7 @@ class WeatherController extends AbstractController
      */
     public function create(Request $request, CitiesRepository $citiesRepository, WeatherRepository $weatherRepository): Response
     {
-        $defaultData = ['message' => 'Type location here'];
-        $form = $this->createFormBuilder($defaultData)
+        $form = $this->createFormBuilder()
             ->add('location', TextType::class)
             ->add('send', SubmitType::class)
             ->getForm();
